@@ -15,32 +15,39 @@ import java.util.Optional;
 
 @Service
 public class EnrollmentService {
-    
+
     private final EnrollmentRepository enrollmentRepository;
     private final UserRepository userRepository;
     private final SubjectRepository subjectRepository;
 
-    public EnrollmentService(EnrollmentRepository enrollmentRepository, UserRepository userRepository, SubjectRepository subjectRepository) {
+    public EnrollmentService(EnrollmentRepository enrollmentRepository,
+                             UserRepository userRepository,
+                             SubjectRepository subjectRepository) {
         this.enrollmentRepository = enrollmentRepository;
         this.userRepository = userRepository;
         this.subjectRepository = subjectRepository;
     }
 
+    //  ENROLL
     public Enrollment enroll(Long userId, Long subjectId) {
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        
+
         if (user.getRole() != Role.STUDENT) {
             throw new RuntimeException("Only STUDENT can enroll in subjects");
         }
-        
+
         Subject subject = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
-        
-        Optional<Enrollment> existingOpt = enrollmentRepository.findByUserAndSubject(user, subject);
-        
+
+        //  FIXED: use ID-based method
+        Optional<Enrollment> existingOpt =
+                enrollmentRepository.findByUserIdAndSubjectId(userId, subjectId);
+
         if (existingOpt.isPresent()) {
             Enrollment existing = existingOpt.get();
+
             if (existing.getStatus() == EnrollmentStatus.ENROLLED) {
                 throw new RuntimeException("Already enrolled in this subject");
             } else {
@@ -48,33 +55,40 @@ public class EnrollmentService {
                 return enrollmentRepository.save(existing);
             }
         }
-        
+
         Enrollment newEnrollment = new Enrollment();
         newEnrollment.setUser(user);
         newEnrollment.setSubject(subject);
         newEnrollment.setStatus(EnrollmentStatus.ENROLLED);
-        
+
         return enrollmentRepository.save(newEnrollment);
     }
-    
+
+    //  DROP
     public Enrollment drop(Long userId, Long subjectId) {
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-                
+
         Subject subject = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
-                
-        Enrollment existing = enrollmentRepository.findByUserAndSubject(user, subject)
+
+        //  FIXED
+        Enrollment existing = enrollmentRepository
+                .findByUserIdAndSubjectId(userId, subjectId)
                 .orElseThrow(() -> new RuntimeException("Enrollment not found"));
-                
+
         existing.setStatus(EnrollmentStatus.DROPPED);
         return enrollmentRepository.save(existing);
     }
-    
+
+    //  GET ENROLLED SUBJECTS
     public List<Enrollment> getEnrolledSubjects(Long userId) {
-        User user = userRepository.findById(userId)
+
+        userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-                
-        return enrollmentRepository.findByUser(user);
+
+        //  FIXED
+        return enrollmentRepository.findByUserId(userId);
     }
 }

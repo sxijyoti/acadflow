@@ -20,24 +20,33 @@ public class AdminService {
     }
 
     public Subject createSubject(Long adminId, SubjectCreateDTO dto) {
+
+        //  FETCH ADMIN
         User admin = userRepository.findById(adminId)
                 .orElseThrow(() -> new RuntimeException("Admin user not found"));
-        
+
         if (admin.getRole() != Role.ADMIN) {
             throw new RuntimeException("Only ADMIN can create subjects");
         }
-        
+
+        //  CREATE SUBJECT
         Subject subject = new Subject();
         subject.setName(dto.name);
         subject.setCode(dto.code);
         subject.setCredits(dto.credits);
-        
+
+        //  FIXED INSTRUCTOR LOGIC
         if (dto.instructorId != null) {
             User instructor = userRepository.findById(dto.instructorId)
                     .orElseThrow(() -> new RuntimeException("Instructor not found"));
+
+            if (instructor.getRole() != Role.INSTRUCTOR) {
+                throw new RuntimeException("User is not an instructor");
+            }
+
             subject.setInstructor(instructor);
         }
-        
+
         return subjectRepository.save(subject);
     }
 }
