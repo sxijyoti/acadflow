@@ -39,3 +39,8 @@ src/main/resources/application-*.properties
 target/
 *.class
 *.jar
+
+CODEBASE_ANALYSIS.md
+DOCKER_SETUP.md
+FILE_MANIFEST.md
+MODULE4_*

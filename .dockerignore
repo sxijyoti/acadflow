@@ -1,0 +1,47 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# IDE and editors
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.classpath
+.settings
+*.iml
+
+# Build artifacts
+target/
+build/
+dist/
+*.jar
+*.war
+*.ear
+
+# Maven
+.m2/
+
+# Documentation
+*.md
+docs/
+
+# Environment files
+.env
+.env.local
+
+# Node (if applicable)
+node_modules/
+npm-debug.log
+
+# Docker
+Dockerfile
+docker-compose.yml
+.docker/
+
+# OS
+Thumbs.db
