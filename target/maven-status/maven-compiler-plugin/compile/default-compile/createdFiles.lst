@@ -3,6 +3,8 @@ com/acadflow/module3/repository/EventRepository.class
 com/acadflow/module2/repository/SubmissionRepository.class
 com/acadflow/module1/repository/UserRepository.class
 com/acadflow/module2/controller/SyllabusController.class
+com/acadflow/module3/exception/InvalidDateRangeException.class
+com/acadflow/module3/util/DateValidationUtil.class
 com/acadflow/module3/dto/EventCreateDTO.class
 com/acadflow/module2/strategy/SubmittedStrategy.class
 com/acadflow/module1/dto/SubjectCreateDTO.class
@@ -33,6 +35,8 @@ com/acadflow/module1/entity/Subject.class
 com/acadflow/module2/controller/SubmissionController.class
 com/acadflow/module2/service/SyllabusService.class
 com/acadflow/module3/Module3Application.class
+com/acadflow/module3/exception/GlobalExceptionHandler.class
+com/acadflow/module3/exception/HolidayNotFoundException.class
 com/acadflow/module2/controller/ResourceController.class
 com/acadflow/module2/dto/SubmissionRequestDTO.class
 com/acadflow/module2/controller/AssignmentController.class
@@ -41,6 +45,7 @@ com/acadflow/module2/dto/ResourceDTO.class
 com/acadflow/module1/controller/EnrollmentController.class
 com/acadflow/module1/controller/ProfileController.class
 com/acadflow/module1/entity/Role.class
+com/acadflow/module3/exception/EventNotFoundException.class
 com/acadflow/module2/entity/Assignment.class
 com/acadflow/module2/strategy/PendingStrategy.class
 com/acadflow/module1/Module1Application.class
@@ -49,12 +54,16 @@ com/acadflow/module2/service/AssignmentService.class
 com/acadflow/module2/dto/AssignmentCreateDTO.class
 com/acadflow/module1/dto/UserCreateDTO.class
 com/acadflow/module1/factory/UserFactory.class
+com/acadflow/module3/util/DTOConverterUtil.class
 com/acadflow/module2/entity/SubmissionStatus.class
 com/acadflow/module2/strategy/LateStrategy.class
 com/acadflow/module2/repository/AssignmentRepository.class
+com/acadflow/module3/config/Module3Config.class
 com/acadflow/module3/service/HolidayService.class
 com/acadflow/module1/service/ProfileService.class
 com/acadflow/module3/adapter/HolidayProvider.class
+com/acadflow/module3/exception/CalendarException.class
+com/acadflow/module3/config/Module3ComponentScan.class
 com/acadflow/module3/dto/EventDTO.class
 com/acadflow/module1/controller/AdminController.class
 com/acadflow/module2/entity/Submission.class
