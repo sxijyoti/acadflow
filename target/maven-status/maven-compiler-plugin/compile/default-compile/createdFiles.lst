@@ -3,14 +3,18 @@ com/acadflow/module3/repository/EventRepository.class
 com/acadflow/module2/repository/SubmissionRepository.class
 com/acadflow/module1/repository/UserRepository.class
 com/acadflow/module2/controller/SyllabusController.class
+com/acadflow/module3/dto/EventCreateDTO.class
 com/acadflow/module2/strategy/SubmittedStrategy.class
 com/acadflow/module1/dto/SubjectCreateDTO.class
 com/acadflow/module1/dto/EnrollmentRequestDTO.class
 com/acadflow/module1/repository/SubjectRepository.class
+com/acadflow/module3/dto/HolidayCreateDTO.class
 com/acadflow/module3/service/CalendarService.class
+com/acadflow/module3/controller/CalendarController.class
 com/acadflow/module1/entity/User.class
 com/acadflow/module2/entity/Resource.class
 com/acadflow/module2/repository/ResourceRepository.class
+com/acadflow/module3/controller/HolidayController.class
 com/acadflow/module3/repository/HolidayRepository.class
 com/acadflow/module2/repository/SyllabusRepository.class
 com/acadflow/module2/service/ResourceService.class
@@ -28,6 +32,7 @@ com/acadflow/module1/service/AdminService.class
 com/acadflow/module1/entity/Subject.class
 com/acadflow/module2/controller/SubmissionController.class
 com/acadflow/module2/service/SyllabusService.class
+com/acadflow/module3/Module3Application.class
 com/acadflow/module2/controller/ResourceController.class
 com/acadflow/module2/dto/SubmissionRequestDTO.class
 com/acadflow/module2/controller/AssignmentController.class
@@ -50,6 +55,8 @@ com/acadflow/module2/repository/AssignmentRepository.class
 com/acadflow/module3/service/HolidayService.class
 com/acadflow/module1/service/ProfileService.class
 com/acadflow/module3/adapter/HolidayProvider.class
+com/acadflow/module3/dto/EventDTO.class
 com/acadflow/module1/controller/AdminController.class
 com/acadflow/module2/entity/Submission.class
 com/acadflow/module1/entity/EnrollmentStatus.class
+com/acadflow/module3/dto/HolidayDTO.class
