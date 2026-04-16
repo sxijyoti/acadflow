@@ -3,6 +3,8 @@ package com.acadflow.ui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -114,27 +116,35 @@ public class MainWindowController {
     }
 
     private void handleLogout() {
+        // Clear session
         SessionManager.getInstance().logout();
-        updateUserInfo();
-        disableAllButtons();
-        loadDashboard();
+        
+        // Show confirmation
         AlertUtil.showInfo("Logout", "You have been logged out successfully");
-    }
-    
-    private void updateUserInfo() {
-        userNameLabel.setText("Guest");
-        userRoleLabel.setText("STUDENT");
-    }
-    
-    private void disableAllButtons() {
-        dashboardBtn.setDisable(false);
-        calendarBtn.setDisable(false);
-        subjectsBtn.setDisable(false);
-        assignmentsBtn.setDisable(false);
-        resourcesBtn.setDisable(false);
-        timetableBtn.setDisable(false);
-        examsBtn.setDisable(false);
-        profileBtn.setDisable(false);
-        holidaysBtn.setDisable(false);
+        
+        try {
+            // Load login screen
+            Stage stage = (Stage) mainBorderPane.getScene().getWindow();
+            
+            FXMLLoader loader = new FXMLLoader(
+                Objects.requireNonNull(getClass().getResource("/fxml/Login.fxml"))
+            );
+            Parent root = loader.load();
+            
+            Scene scene = new Scene(root);
+            String css = Objects.requireNonNull(
+                getClass().getResource("/css/styles.css")
+            ).toExternalForm();
+            scene.getStylesheets().add(css);
+            
+            stage.setScene(scene);
+            stage.setWidth(800);
+            stage.setHeight(700);
+            stage.centerOnScreen();
+            stage.setResizable(false);
+        } catch (IOException e) {
+            AlertUtil.showError("Error", "Failed to return to login: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

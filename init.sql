@@ -153,8 +153,8 @@ CREATE TABLE IF NOT EXISTS holiday (
 -- Insert sample data
 INSERT INTO user (first_name, last_name, email, password, role) VALUES
 ('Admin', 'User', 'admin@acadflow.com', 'admin123', 'ADMIN'),
-('Pooja', 'Sharma', 'pooja.sharma@pesu.com', 'teacher123', 'TEACHER'),
-('Sarah', 'Johnson', 'sarah.johnson@pesu.com', 'student123', 'STUDENT');
+('Teacher', 'User', 'teacher@acadflow.com', 'teacher123', 'TEACHER'),
+('Student', 'User', 'student@acadflow.com', 'password123', 'STUDENT');
 
 INSERT INTO subject (name, code, credits, description) VALUES
 ('Mathematics', 'MATH101', 4, 'Introduction to Calculus and Linear Algebra'),

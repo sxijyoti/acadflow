@@ -18,6 +18,7 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/adapter/HolidayProvider.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/dto/SubjectCreateDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/services/ApiService.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/controllers/LoginController.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/dto/ExamCreateDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/controllers/SubjectEnrollmentController.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/controller/CalendarController.java
@@ -28,6 +29,7 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/service/AdminService.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/controllers/AssignmentsController.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/entity/EnrollmentStatus.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/service/UserService.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/dto/ExamDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/controller/TimetableController.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/controllers/ResourcesController.java

@@ -7,7 +7,16 @@ public class UserFactory {
     public static User createUser(Role role, String name, String email, String department, Integer semester) {
         User user = new User();
         user.setRole(role);
-        user.setName(name);
+        
+        // Parse full name into first and last name
+        if (name != null && !name.isEmpty()) {
+            String[] nameParts = name.trim().split(" ", 2);
+            user.setFirstName(nameParts[0]);
+            if (nameParts.length > 1) {
+                user.setLastName(nameParts[1]);
+            }
+        }
+        
         user.setEmail(email);
         user.setDepartment(department);
         

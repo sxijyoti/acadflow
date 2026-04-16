@@ -120,6 +120,8 @@ com/acadflow/module3/util/DTOConverterUtil.class
 com/acadflow/module1/factory/UserFactory.class
 com/acadflow/module4/dto/ExamResponseDTO.class
 com/acadflow/module2/entity/SubmissionStatus.class
+com/acadflow/module1/service/UserService.class
+com/acadflow/ui/controllers/LoginController.class
 com/acadflow/module4/entity/DayOfWeek.class
 com/acadflow/module3/config/Module3Config.class
 com/acadflow/module2/repository/AssignmentRepository.class

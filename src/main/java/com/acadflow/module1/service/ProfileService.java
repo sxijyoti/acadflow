@@ -30,7 +30,13 @@ public class ProfileService {
 
     public User updateProfile(Long id, UserCreateDTO dto) {
         return userRepository.findById(id).map(user -> {
-            if (dto.name != null) user.setName(dto.name);
+            if (dto.name != null && !dto.name.isEmpty()) {
+                String[] nameParts = dto.name.trim().split(" ", 2);
+                user.setFirstName(nameParts[0]);
+                if (nameParts.length > 1) {
+                    user.setLastName(nameParts[1]);
+                }
+            }
             if (dto.department != null) user.setDepartment(dto.department);
             if (dto.semester != null) user.setSemester(dto.semester);
             return userRepository.save(user);

@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.acadflow.ui.util.SessionManager;
 import com.acadflow.ui.util.NavigationManager;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -19,6 +21,7 @@ public class AcadflowApplication extends Application {
 
     private static Stage primaryStage;
     private NavigationManager navigationManager;
+    private static ApplicationContext springContext;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -28,21 +31,36 @@ public class AcadflowApplication extends Application {
         // Initialize session
         SessionManager.getInstance();
         
-        // Load main window
-        loadMainWindow();
+        // Load login window (instead of main window)
+        loadLoginWindow();
         
         stage.setTitle("Academic Workflow Management System");
-        stage.setWidth(1400);
-        stage.setHeight(900);
-        stage.setMinWidth(900);
-        stage.setMinHeight(600);
+        stage.setWidth(800);
+        stage.setHeight(700);
+        stage.centerOnScreen();
+        stage.setResizable(false);
         stage.show();
     }
 
-    private void loadMainWindow() throws IOException {
+    private void loadLoginWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader(
-            Objects.requireNonNull(getClass().getResource("/fxml/MainWindow.fxml"))
+            Objects.requireNonNull(getClass().getResource("/fxml/Login.fxml"))
         );
+        
+        // Set controller factory to use Spring context for dependency injection
+        if (springContext != null) {
+            loader.setControllerFactory(springContext::getBean);
+        } else {
+            // Fallback if spring context is not available
+            loader.setControllerFactory(c -> {
+                try {
+                    return c.getConstructor().newInstance();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+        
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
@@ -56,6 +74,10 @@ public class AcadflowApplication extends Application {
 
     public static Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public static void setSpringContext(ApplicationContext context) {
+        springContext = context;
     }
 
     public static void main(String[] args) {
