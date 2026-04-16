@@ -16,6 +16,13 @@ import java.util.List;
  */
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.acadflow.module4.service.TimetableService;
+import com.acadflow.module4.dto.TimetableCreateDTO;
+import com.acadflow.module4.entity.DayOfWeek;
+import com.acadflow.ui.util.SessionManager;
+import com.acadflow.ui.util.AlertUtil;
 
 @Component("uiTimetableController")
 @Scope("prototype")
@@ -24,9 +31,41 @@ public class TimetableController {
     @FXML private VBox timetableContainer;
     @FXML private GridPane timetableGrid;
 
+    @Autowired private TimetableService timetableService;
+
     @FXML
     public void initialize() {
         renderTimetable();
+
+        if ("ADMIN".equals(SessionManager.getInstance().getUserRole())) {
+            javafx.scene.control.Button addBtn = new javafx.scene.control.Button("Add Timetable Slot");
+            addBtn.setStyle("-fx-padding: 5 15; -fx-background-color: #2980b9; -fx-text-fill: white;");
+            addBtn.setOnAction(e -> {
+                javafx.scene.control.TextInputDialog dialog = new javafx.scene.control.TextInputDialog();
+                dialog.setTitle("Add Timetable Slot");
+                dialog.setHeaderText("Enter Subject ID and Day (e.g. 1,MONDAY)");
+                dialog.showAndWait().ifPresent(result -> {
+                    String[] parts = result.split(",");
+                    if (parts.length >= 2) {
+                        try {
+                            TimetableCreateDTO dto = new TimetableCreateDTO();
+                            dto.setSubjectId(Long.parseLong(parts[0].trim()));
+                            dto.setDay(DayOfWeek.valueOf(parts[1].trim().toUpperCase()));
+                            dto.setStartTime(LocalTime.of(9, 0));
+                            dto.setEndTime(LocalTime.of(10, 30));
+                            dto.setLocation("Room 101");
+                            timetableService.createTimetableSlot(dto);
+                            AlertUtil.showSuccess("Success", "Timetable slot added successfully!");
+                            // Can't refresh sample data grid, but we notify user
+                            renderTimetable();
+                        } catch(Exception ex) {
+                            AlertUtil.showError("Error", ex.getMessage());
+                        }
+                    }
+                });
+            });
+            timetableContainer.getChildren().add(0, addBtn);
+        }
     }
 
     private void renderTimetable() {

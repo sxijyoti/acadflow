@@ -57,6 +57,33 @@ public class SubjectEnrollmentController {
         setupAvailableSubjectsTable();
         setupEnrolledSubjectsTable();
         loadData();
+        
+        if ("ADMIN".equals(SessionManager.getInstance().getUserRole())) {
+            javafx.scene.control.Button addBtn = new javafx.scene.control.Button("Create Subject");
+            addBtn.setStyle("-fx-padding: 5 15; -fx-background-color: #2980b9; -fx-text-fill: white;");
+            addBtn.setOnAction(e -> {
+                javafx.scene.control.TextInputDialog dialog = new javafx.scene.control.TextInputDialog();
+                dialog.setTitle("Create Subject");
+                dialog.setHeaderText("Enter Subject Code and Name (e.g. CS101,Intro to CS)");
+                dialog.showAndWait().ifPresent(result -> {
+                    String[] parts = result.split(",");
+                    if (parts.length >= 2) {
+                        try {
+                            Subject s = new Subject();
+                            s.setCode(parts[0].trim());
+                            s.setName(parts[1].trim());
+                            s.setCredits(3);
+                            subjectRepository.save(s);
+                            AlertUtil.showSuccess("Success", "Subject created successfully!");
+                            loadData();
+                        } catch(Exception ex) {
+                            AlertUtil.showError("Error", ex.getMessage());
+                        }
+                    }
+                });
+            });
+            enrollmentContainer.getChildren().add(0, addBtn);
+        }
     }
 
     private void setupAvailableSubjectsTable() {

@@ -47,4 +47,11 @@ public class AssignmentService {
                 .filter(a -> subjectIds.contains(a.getSubject().getId()))
                 .toList();
     }
+
+    public List<Assignment> getAssignmentsForInstructor(Long userId) {
+        return repo.findAll()
+                .stream()
+                .filter(a -> a.getSubject() != null && a.getSubject().getInstructor() != null && a.getSubject().getInstructor().getId().equals(userId))
+                .toList();
+    }
 }

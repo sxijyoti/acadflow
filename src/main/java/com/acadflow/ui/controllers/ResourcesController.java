@@ -13,6 +13,9 @@ import javafx.scene.layout.VBox;
 import com.acadflow.ui.dto.ResourceDTO;
 import com.acadflow.ui.services.SampleDataProvider;
 import com.acadflow.ui.util.AlertUtil;
+import com.acadflow.ui.util.SessionManager;
+import javafx.stage.FileChooser;
+import java.io.File;
 
 import java.util.List;
 
@@ -39,6 +42,35 @@ public class ResourcesController {
         setupSubjectCombo();
         setupResourceTable();
         loadResources("CS101");
+        setupInstructorControls();
+    }
+
+    private void setupInstructorControls() {
+        if ("INSTRUCTOR".equals(SessionManager.getInstance().getUserRole())) {
+            Button uploadBtn = new Button("Upload Resource");
+            uploadBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;");
+            uploadBtn.setOnAction(e -> handleUploadResource());
+            
+            javafx.scene.layout.HBox headerBox = (javafx.scene.layout.HBox) subjectCombo.getParent();
+            headerBox.getChildren().add(uploadBtn);
+        }
+    }
+
+    private void handleUploadResource() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Resource to Upload");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("All Files", "*.*"),
+            new FileChooser.ExtensionFilter("PDF Documents", "*.pdf"),
+            new FileChooser.ExtensionFilter("PowerPoint Presentations", "*.pptx")
+        );
+        
+        File selectedFile = fileChooser.showOpenDialog(resourcesContainer.getScene().getWindow());
+        if (selectedFile != null) {
+            String subject = subjectCombo.getValue();
+            AlertUtil.showSuccess("Success", "Resource " + selectedFile.getName() + " uploaded for " + subject);
+            // Re-load logic would go here if it was DB backed
+        }
     }
 
     private void setupSubjectCombo() {

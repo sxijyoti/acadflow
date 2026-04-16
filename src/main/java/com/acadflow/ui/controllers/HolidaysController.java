@@ -40,6 +40,26 @@ public class HolidaysController {
     public void initialize() {
         setupTable();
         loadHolidays();
+        
+        if ("ADMIN".equals(com.acadflow.ui.util.SessionManager.getInstance().getUserRole())) {
+            javafx.scene.control.Button addBtn = new javafx.scene.control.Button("Add Holiday");
+            addBtn.setStyle("-fx-padding: 5 15; -fx-background-color: #2980b9; -fx-text-fill: white;");
+            addBtn.setOnAction(e -> {
+                javafx.scene.control.TextInputDialog dialog = new javafx.scene.control.TextInputDialog();
+                dialog.setTitle("Add Holiday");
+                dialog.setHeaderText("Enter Holiday Name");
+                dialog.showAndWait().ifPresent(result -> {
+                    com.acadflow.module3.entity.Holiday h = new com.acadflow.module3.entity.Holiday();
+                    h.setName(result.trim());
+                    h.setDate(LocalDate.now().plusDays(1));
+                    h.setType("PUBLIC");
+                    holidayService.createHoliday(h);
+                    com.acadflow.ui.util.AlertUtil.showSuccess("Success", "Holiday added successfully!");
+                    loadHolidays();
+                });
+            });
+            holidaysContainer.getChildren().add(0, addBtn);
+        }
     }
 
 

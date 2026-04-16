@@ -51,6 +51,34 @@ public class ExamsController {
         setupTable();
         setupSortFilter();
         loadExams();
+        
+        if ("ADMIN".equals(SessionManager.getInstance().getUserRole())) {
+            javafx.scene.control.Button addBtn = new javafx.scene.control.Button("Add Exam");
+            addBtn.setStyle("-fx-padding: 5 15; -fx-background-color: #2980b9; -fx-text-fill: white;");
+            addBtn.setOnAction(e -> {
+                javafx.scene.control.TextInputDialog dialog = new javafx.scene.control.TextInputDialog();
+                dialog.setTitle("Add Exam");
+                dialog.setHeaderText("Enter Subject ID and Exam Type (e.g. 1,MIDTERM)");
+                dialog.showAndWait().ifPresent(result -> {
+                    String[] parts = result.split(",");
+                    if (parts.length >= 2) {
+                        try {
+                            com.acadflow.module4.dto.ExamCreateDTO dto = new com.acadflow.module4.dto.ExamCreateDTO();
+                            dto.setSubjectId(Long.parseLong(parts[0].trim()));
+                            dto.setType(parts[1].trim());
+                            dto.setDate(java.time.LocalDateTime.now().plusDays(7));
+                            dto.setLocation("Main Hall");
+                            examService.createExam(dto);
+                            com.acadflow.ui.util.AlertUtil.showSuccess("Success", "Exam added successfully!");
+                            loadExams();
+                        } catch(Exception ex) {
+                            com.acadflow.ui.util.AlertUtil.showError("Error", ex.getMessage());
+                        }
+                    }
+                });
+            });
+            examsContainer.getChildren().add(0, addBtn);
+        }
     }
 
     

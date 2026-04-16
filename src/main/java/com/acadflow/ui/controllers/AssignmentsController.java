@@ -55,8 +55,45 @@ public class AssignmentsController {
         setupTable();
         setupStatusFilter();
         loadAssignments();
+        setupInstructorControls();
     }
     
+    private void setupInstructorControls() {
+        if ("INSTRUCTOR".equals(SessionManager.getInstance().getUserRole())) {
+            Button createAssignBtn = new Button("Create Assignment");
+            createAssignBtn.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;");
+            createAssignBtn.setOnAction(e -> handleCreateAssignment());
+            
+            javafx.scene.layout.HBox filterBox = (javafx.scene.layout.HBox) statusFilter.getParent();
+            filterBox.getChildren().add(createAssignBtn);
+        }
+    }
+
+    private void handleCreateAssignment() {
+        javafx.scene.control.TextInputDialog dialog = new javafx.scene.control.TextInputDialog();
+        dialog.setTitle("Create Assignment");
+        dialog.setHeaderText("Create a New Assignment");
+        dialog.setContentText("Enter Assignment Name:");
+        dialog.showAndWait().ifPresent(name -> {
+            new Thread(() -> {
+                try {
+                    Assignment assignment = new Assignment();
+                    assignment.setTitle(name);
+                    assignment.setDescription("Instructor created assignment");
+                    assignment.setDeadline(java.time.LocalDateTime.now().plusDays(7));
+                    // Simplification: assign to subject ID 1
+                    assignmentService.create(assignment, 1L);
+                    Platform.runLater(() -> {
+                        AlertUtil.showSuccess("Success", "Assignment " + name + " created successfully.");
+                        loadAssignments();
+                    });
+                } catch (Exception e) {
+                    Platform.runLater(() -> AlertUtil.showError("Error", "Failed to create assignment: " + e.getMessage()));
+                }
+            }).start();
+        });
+    }
+
     private void setupStatusFilter() {
         statusFilter.setItems(FXCollections.observableArrayList(
             "All", "PENDING", "SUBMITTED", "LATE", "GRADED"
@@ -115,6 +152,11 @@ public class AssignmentsController {
                     } else {
                         submitBtn.setDisable(true);
                     }
+                    
+                    if ("INSTRUCTOR".equals(SessionManager.getInstance().getUserRole())) {
+                        submitBtn.setDisable(true);
+                        submitBtn.setVisible(false);
+                    }
 
                     javafx.scene.layout.HBox hbox = new javafx.scene.layout.HBox(5);
                     hbox.getChildren().addAll(submitBtn, viewBtn);
@@ -128,10 +170,19 @@ public class AssignmentsController {
         new Thread(() -> {
             try {
                 Long userId = SessionManager.getInstance().getUserId();
-                List<Assignment> assignments = assignmentService.getAssignmentsForStudent(userId);
-                List<SubmissionResponseDTO> submissions = submissionService.getByUser(userId);
+                String role = SessionManager.getInstance().getUserRole();
+                List<Assignment> assignments;
+                List<SubmissionResponseDTO> submissions;
+                
+                if ("INSTRUCTOR".equals(role)) {
+                    assignments = assignmentService.getAssignmentsForInstructor(userId);
+                    submissions = new java.util.ArrayList<>();
+                } else {
+                    assignments = assignmentService.getAssignmentsForStudent(userId);
+                    submissions = submissionService.getByUser(userId);
+                }
 
-                Map<Long, SubmissionResponseDTO> submissionMap = submissions.stream()
+                Map<Long, SubmissionResponseDTO> submissionMap = submissions == null ? Map.of() : submissions.stream()
                         .collect(Collectors.toMap(s -> s.assignmentId, s -> s));
 
                 List<AssignmentDTO> dtos = assignments.stream().map(a -> {
@@ -144,7 +195,9 @@ public class AssignmentsController {
                     // Assignment deadline is LocalDateTime, UI expects LocalDate
                     dto.setDueDate(a.getDeadline() != null ? a.getDeadline().toLocalDate() : LocalDate.of(2099, 12, 31));
                     
-                    if (submissionMap.containsKey(a.getId())) {
+                    if ("INSTRUCTOR".equals(role)) {
+                        dto.setStatus("N/A");
+                    } else if (submissionMap.containsKey(a.getId())) {
                         dto.setStatus(submissionMap.get(a.getId()).status);
                     } else {
                         dto.setStatus("PENDING");
