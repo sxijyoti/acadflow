@@ -3,7 +3,7 @@ package com.acadflow.module1.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "enrollments", uniqueConstraints = {
+@Table(name = "enrollment", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"user_id", "subject_id"})
 })
 public class Enrollment {

@@ -8,16 +8,29 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
+import javafx.application.Platform;
 
 import com.acadflow.ui.dto.ExamDTO;
-import com.acadflow.ui.services.SampleDataProvider;
+import com.acadflow.module4.service.ExamService;
+import com.acadflow.module4.dto.ExamResponseDTO;
+import com.acadflow.module1.service.EnrollmentService;
+import com.acadflow.module1.entity.Enrollment;
+import com.acadflow.ui.util.SessionManager;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Exams Controller
  */
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Component("uiExamsController")
+@Scope("prototype")
 public class ExamsController {
 
     @FXML private VBox examsContainer;
@@ -30,12 +43,16 @@ public class ExamsController {
     @FXML private TableColumn<ExamDTO, String> locationColumn;
     private ObservableList<ExamDTO> allExams;
 
+    @Autowired private ExamService examService;
+    @Autowired private EnrollmentService enrollmentService;
+
     @FXML
     public void initialize() {
         setupTable();
         setupSortFilter();
         loadExams();
     }
+
     
     private void setupSortFilter() {
         sortFilter.setItems(FXCollections.observableArrayList(
@@ -69,9 +86,38 @@ public class ExamsController {
     }
 
     private void loadExams() {
-        allExams = FXCollections.observableArrayList(
-            SampleDataProvider.getSampleExams()
-        );
+        allExams = FXCollections.observableArrayList();
         examsTable.setItems(allExams);
+
+        new Thread(() -> {
+            try {
+                Long userId = SessionManager.getInstance().getUserId();
+                List<Enrollment> enrollments = enrollmentService.getEnrolledSubjects(userId);
+                List<ExamDTO> fetchedExams = new ArrayList<>();
+                for (Enrollment enroll : enrollments) {
+                    var exams = examService.getExamsForSubject(enroll.getSubject().getId());
+                    if (exams != null) {
+                        for (ExamResponseDTO ext : exams) {
+                            ExamDTO edto = new ExamDTO(
+                                ext.getId(),
+                                enroll.getSubject().getCode(),
+                                enroll.getSubject().getName(),
+                                ext.getDate().toLocalDate(),
+                                ext.getType(),
+                                ext.getLocation()
+                            );
+                            edto.setStartTime(ext.getDate().toLocalTime());
+                            fetchedExams.add(edto);
+                        }
+                    }
+                }
+                Platform.runLater(() -> {
+                    allExams.setAll(fetchedExams);
+                    sortExams();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }

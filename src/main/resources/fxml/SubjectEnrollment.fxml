@@ -6,7 +6,7 @@
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.acadflow.ui.controllers.SubjectEnrollmentController" fx:id="enrollmentContainer" spacing="20" style="-fx-padding: 20;">
     
-    <Label text="📚 Subject Enrollment" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    <Label text="Subject Enrollment" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
     
     <TabPane tabClosingPolicy="UNAVAILABLE">
         <!-- Available Subjects Tab -->

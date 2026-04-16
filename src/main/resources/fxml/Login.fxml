@@ -47,7 +47,7 @@
                 
                 <!-- Demo Credentials -->
                 <VBox spacing="8" style="-fx-padding: 15; -fx-background-color: #ecf0f1; -fx-border-radius: 5;">
-                    <Label text="📝 Demo Credentials" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size: 12;"/>
+                    <Label text="Demo Credentials" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size: 12;"/>
                     <Label text="Email: student@acadflow.com" style="-fx-text-fill: #34495e; -fx-font-size: 11;"/>
                     <Label text="Password: password123" style="-fx-text-fill: #34495e; -fx-font-size: 11;"/>
                 </VBox>

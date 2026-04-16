@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.application.Platform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
 
 import com.acadflow.module1.entity.User;
 import com.acadflow.module1.service.UserService;
@@ -25,7 +26,8 @@ import java.util.Objects;
 /**
  * Login Controller - handles user authentication
  */
-@Component
+@Component("uiLoginController")
+@Scope("prototype")
 public class LoginController {
     
     @FXML public TextField emailField;
@@ -138,10 +140,18 @@ public class LoginController {
                 Objects.requireNonNull(getClass().getResource("/fxml/MainWindow.fxml"))
             );
             loader.setControllerFactory(c -> {
-                // This allows Spring to manage the controller
                 try {
+                    if (com.acadflow.ui.AcadflowApplication.getSpringContext() != null) {
+                        try {
+                            return com.acadflow.ui.AcadflowApplication.getSpringContext().getBean(c);
+                        } catch (org.springframework.beans.BeansException ignored) {
+                            // Fallback if not a spring bean
+                        }
+                    }
                     return c.getConstructor().newInstance();
                 } catch (Exception e) {
+                    System.err.println("[ERROR] Failed to instantiate controller: " + c.getName());
+                    e.printStackTrace();
                     return null;
                 }
             });

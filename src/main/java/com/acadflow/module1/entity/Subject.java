@@ -3,7 +3,7 @@ package com.acadflow.module1.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "subjects")
+@Table(name = "subject")
 public class Subject {
 
     @Id

@@ -19,6 +19,11 @@ import java.util.List;
 /**
  * Resources/Syllabus Controller
  */
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+
+@Component("uiResourcesController")
+@Scope("prototype")
 public class ResourcesController {
 
     @FXML private VBox resourcesContainer;

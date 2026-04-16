@@ -76,6 +76,8 @@ public class AcadflowApplication extends Application {
         return primaryStage;
     }
 
+    public static ApplicationContext getSpringContext() { return springContext; }
+
     public static void setSpringContext(ApplicationContext context) {
         springContext = context;
     }

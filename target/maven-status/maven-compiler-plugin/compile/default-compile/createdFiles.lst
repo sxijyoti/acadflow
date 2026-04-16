@@ -1,4 +1,5 @@
 com/acadflow/module4/service/ExamService$1.class
+com/acadflow/ui/TestBeans2.class
 com/acadflow/ui/controllers/SubjectEnrollmentController.class
 com/acadflow/module2/repository/SubmissionRepository.class
 com/acadflow/module2/controller/SyllabusController.class
@@ -6,6 +7,7 @@ com/acadflow/module4/dto/ExamCreateDTO.class
 com/acadflow/module4/event/ExamEvent$ExamEventType.class
 com/acadflow/module4/event/TimetableEvent.class
 com/acadflow/ui/util/NavigationManager.class
+com/acadflow/ui/TestAllScreens.class
 com/acadflow/module3/exception/InvalidDateRangeException.class
 com/acadflow/ui/util/AlertUtil.class
 com/acadflow/ui/controllers/AssignmentsController$1.class
@@ -14,6 +16,7 @@ com/acadflow/ui/controllers/ExamsController.class
 com/acadflow/module3/util/DateValidationUtil.class
 com/acadflow/module4/entity/Timetable.class
 com/acadflow/module1/repository/SubjectRepository.class
+com/acadflow/ui/CheckSubjects.class
 com/acadflow/ui/dto/EventDTO.class
 com/acadflow/module3/service/CalendarService.class
 com/acadflow/module4/service/ExamService.class
@@ -47,11 +50,13 @@ com/acadflow/module3/exception/HolidayNotFoundException.class
 com/acadflow/module2/controller/AssignmentController.class
 com/acadflow/ui/util/SessionManager.class
 com/acadflow/module2/dto/ResourceDTO.class
+com/acadflow/ui/SeedDb.class
 com/acadflow/module1/controller/EnrollmentController.class
 com/acadflow/module2/entity/Assignment.class
 com/acadflow/module1/Module1Application.class
 com/acadflow/module2/dto/AssignmentCreateDTO.class
 com/acadflow/module2/service/AssignmentService.class
+com/acadflow/ui/SeedJpa.class
 com/acadflow/module1/dto/UserCreateDTO.class
 com/acadflow/module4/Module4Application.class
 com/acadflow/module4/exception/ResourceNotFoundException.class
@@ -64,6 +69,7 @@ com/acadflow/module3/exception/CalendarException.class
 com/acadflow/module4/repository/TimetableRepository.class
 com/acadflow/module4/entity/Exam.class
 com/acadflow/ui/controllers/ResourcesController$1.class
+com/acadflow/ui/TestDb.class
 com/acadflow/ui/dto/ResourceDTO.class
 com/acadflow/ui/controllers/ProfileController.class
 com/acadflow/module1/entity/Enrollment.class
@@ -78,6 +84,7 @@ com/acadflow/ui/services/ApiService$5.class
 com/acadflow/module4/service/EventPublisher.class
 com/acadflow/ui/controllers/AssignmentsController.class
 com/acadflow/module2/strategy/SubmittedStrategy.class
+com/acadflow/ui/SeedJdbc.class
 com/acadflow/module1/dto/SubjectCreateDTO.class
 com/acadflow/module1/dto/EnrollmentRequestDTO.class
 com/acadflow/module4/exception/TimeSlotConflictException.class
@@ -85,18 +92,21 @@ com/acadflow/module3/dto/HolidayCreateDTO.class
 com/acadflow/module3/controller/CalendarController.class
 com/acadflow/ui/dto/HolidayDTO.class
 com/acadflow/module1/entity/User.class
+com/acadflow/ui/InsertData.class
 com/acadflow/module4/controller/TimetableController.class
 com/acadflow/module2/entity/Resource.class
 com/acadflow/module2/repository/ResourceRepository.class
 com/acadflow/module3/repository/HolidayRepository.class
 com/acadflow/module4/config/Module4Config.class
 com/acadflow/module1/service/EnrollmentService.class
+com/acadflow/ui/CheckDb.class
 com/acadflow/module3/entity/Holiday.class
 com/acadflow/ui/dto/TimetableSlotDTO.class
 com/acadflow/module3/entity/EventType.class
 com/acadflow/module2/strategy/SubmissionStrategy.class
 com/acadflow/module1/service/AdminService.class
 com/acadflow/module4/repository/ExamRepository.class
+com/acadflow/ui/TestNav.class
 com/acadflow/ui/services/ApiService$7.class
 com/acadflow/module3/Module3Application.class
 com/acadflow/ui/dto/SubjectDTO.class
@@ -108,6 +118,7 @@ com/acadflow/module2/dto/SubmissionRequestDTO.class
 com/acadflow/ui/dto/UserDTO.class
 com/acadflow/module4/event/ExamEvent.class
 com/acadflow/module3/entity/Event.class
+com/acadflow/ui/TestSingle.class
 com/acadflow/module4/service/TimetableService.class
 com/acadflow/module1/controller/ProfileController.class
 com/acadflow/module3/exception/EventNotFoundException.class
@@ -130,6 +141,7 @@ com/acadflow/module3/dto/EventDTO.class
 com/acadflow/module3/config/Module3ComponentScan.class
 com/acadflow/module2/entity/Submission.class
 com/acadflow/module1/controller/AdminController.class
+com/acadflow/ui/TestSubmission.class
 com/acadflow/ui/services/SampleDataProvider.class
 com/acadflow/module1/entity/EnrollmentStatus.class
 com/acadflow/ui/controllers/SubjectEnrollmentController$1.class

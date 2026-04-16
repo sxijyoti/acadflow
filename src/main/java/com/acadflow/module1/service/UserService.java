@@ -51,4 +51,13 @@ public class UserService {
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+    
+    /**
+     * Save or update user
+     * @param user User entity to save
+     * @return Saved user
+     */
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 }

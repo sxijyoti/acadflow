@@ -170,3 +170,20 @@ CREATE INDEX idx_submission_user ON submission(user_id);
 CREATE INDEX idx_timetable_subject ON timetable(subject_id);
 CREATE INDEX idx_exam_subject ON exam(subject_id);
 CREATE INDEX idx_exam_date ON exam(exam_date);
+
+-- Dummy Enrollments for Student (id=3)
+INSERT INTO enrollment (user_id, subject_id, status, enrollment_date) VALUES 
+(3, 1, 'ACTIVE', CURRENT_DATE),
+(3, 2, 'ACTIVE', CURRENT_DATE);
+
+-- Dummy Assignments for Subjects 1 and 2
+INSERT INTO assignment (subject_id, title, description, due_date, max_marks, created_by) VALUES
+(1, 'Calculus HW 1', 'Complete exercises 1-15 on limits.', DATE_ADD(CURRENT_DATE, INTERVAL 5 DAY), 50, 2),
+(1, 'Linear Algebra Project', 'Create a matrix operations solver.', DATE_ADD(CURRENT_DATE, INTERVAL 14 DAY), 100, 2),
+(2, 'Physics Lab 1', 'Report on pendulum oscillation experiment.', DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY), 30, 2),
+(3, 'CS Intro Assignment', 'Write a "Hello World" application.', DATE_ADD(CURRENT_DATE, INTERVAL 7 DAY), 50, 2);
+
+-- Dummy Submissions for Student (id=3)
+INSERT INTO submission (assignment_id, user_id, content, status, submission_date) VALUES
+(1, 3, 'My assignment document text.', 'SUBMITTED', CURRENT_DATE);
+

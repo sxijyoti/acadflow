@@ -8,16 +8,27 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
+import javafx.application.Platform;
 
 import com.acadflow.ui.dto.SubjectDTO;
-import com.acadflow.ui.services.SampleDataProvider;
 import com.acadflow.ui.util.AlertUtil;
+import com.acadflow.ui.util.SessionManager;
+import com.acadflow.module1.entity.Subject;
+import com.acadflow.module1.entity.Enrollment;
+import com.acadflow.module1.entity.EnrollmentStatus;
+import com.acadflow.module1.service.EnrollmentService;
+import com.acadflow.module1.repository.SubjectRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Objects;
 
-/**
- * Subject Enrollment Controller
- */
+@Component("uiSubjectEnrollmentController")
+@Scope("prototype")
 public class SubjectEnrollmentController {
 
     @FXML private VBox enrollmentContainer;
@@ -34,6 +45,12 @@ public class SubjectEnrollmentController {
     @FXML private TableColumn<SubjectDTO, Integer> totalClassesColumn;
     @FXML private TableColumn<SubjectDTO, Integer> attendedColumn;
     @FXML private TableColumn<SubjectDTO, Void> dropColumn;
+
+    @Autowired
+    private EnrollmentService enrollmentService;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     @FXML
     public void initialize() {
@@ -90,37 +107,86 @@ public class SubjectEnrollmentController {
         });
     }
 
+    private SubjectDTO mapToDTO(Subject s) {
+        String instructorName = (s.getInstructor() != null) 
+            ? s.getInstructor().getFirstName() + " " + s.getInstructor().getLastName() 
+            : "TBA";
+        return new SubjectDTO(s.getId(), s.getCode(), s.getName(), "", instructorName, s.getCredits() == null ? 0 : s.getCredits());
+    }
+
     private void loadData() {
-        List<SubjectDTO> allSubjects = SampleDataProvider.getSampleSubjects();
-        List<SubjectDTO> enrolledSubjects = SampleDataProvider.getSampleEnrolledSubjects();
+        new Thread(() -> {
+            try {
+                Long userId = SessionManager.getInstance().getUserId();
+                List<Subject> allSubjects = subjectRepository.findAll();
+                List<Enrollment> enrollments = enrollmentService.getEnrolledSubjects(userId);
 
-        ObservableList<SubjectDTO> availableSubjects = FXCollections.observableArrayList(
-            allSubjects.stream().filter(s -> !enrolledSubjects.contains(s)).toList()
-        );
+                // Filter enrollments to only show those active (ENROLLED)
+                List<Enrollment> activeEnrollments = enrollments.stream()
+                        .filter(e -> e.getStatus() == EnrollmentStatus.ENROLLED)
+                        .collect(Collectors.toList());
 
-        ObservableList<SubjectDTO> enrolled = FXCollections.observableArrayList(enrolledSubjects);
+                List<Long> enrolledSubjectIds = activeEnrollments.stream()
+                        .map(e -> e.getSubject().getId())
+                        .collect(Collectors.toList());
 
-        availableSubjectsTable.setItems(availableSubjects);
-        enrolledSubjectsTable.setItems(enrolled);
+                List<SubjectDTO> availableDTOs = allSubjects.stream()
+                        .filter(s -> !enrolledSubjectIds.contains(s.getId()))
+                        .map(this::mapToDTO)
+                        .collect(Collectors.toList());
+
+                List<SubjectDTO> enrolledDTOs = activeEnrollments.stream()
+                        .map(e -> {
+                            SubjectDTO dto = mapToDTO(e.getSubject());
+                            // Since we don't have attendance module yet, default to 0
+                            dto.setTotalClasses(0);
+                            dto.setAttendedClasses(0);
+                            return dto;
+                        })
+                        .collect(Collectors.toList());
+
+                Platform.runLater(() -> {
+                    availableSubjectsTable.setItems(FXCollections.observableArrayList(availableDTOs));
+                    enrolledSubjectsTable.setItems(FXCollections.observableArrayList(enrolledDTOs));
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> AlertUtil.showError("Error", "Could not load subjects"));
+            }
+        }).start();
     }
 
     private void handleEnroll(SubjectDTO subject) {
-        AlertUtil.showSuccess("Enrolled", "Successfully enrolled in " + subject.getName());
-        // In real implementation, call API
-        ObservableList<SubjectDTO> available = availableSubjectsTable.getItems();
-        ObservableList<SubjectDTO> enrolled = enrolledSubjectsTable.getItems();
-        
-        available.remove(subject);
-        enrolled.add(subject);
+        new Thread(() -> {
+            try {
+                Long userId = SessionManager.getInstance().getUserId();
+                enrollmentService.enroll(userId, subject.getId());
+
+                Platform.runLater(() -> {
+                    AlertUtil.showSuccess("Enrolled", "Successfully enrolled in " + subject.getName());
+                    loadData();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> AlertUtil.showError("Error", "Could not enroll: " + e.getMessage()));
+            }
+        }).start();
     }
 
     private void handleDrop(SubjectDTO subject) {
-        AlertUtil.showSuccess("Dropped", "Successfully dropped " + subject.getName());
-        // In real implementation, call API
-        ObservableList<SubjectDTO> available = availableSubjectsTable.getItems();
-        ObservableList<SubjectDTO> enrolled = enrolledSubjectsTable.getItems();
-        
-        enrolled.remove(subject);
-        available.add(subject);
+        new Thread(() -> {
+            try {
+                Long userId = SessionManager.getInstance().getUserId();
+                enrollmentService.drop(userId, subject.getId());
+
+                Platform.runLater(() -> {
+                    AlertUtil.showSuccess("Dropped", "Successfully dropped " + subject.getName());
+                    loadData();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> AlertUtil.showError("Error", "Could not drop: " + e.getMessage()));
+            }
+        }).start();
     }
 }

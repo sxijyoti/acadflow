@@ -6,7 +6,7 @@
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.acadflow.ui.controllers.AssignmentsController" fx:id="assignmentsContainer" spacing="20" style="-fx-padding: 20;">
     
-    <Label text="📝 Assignments" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    <Label text="Assignments" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
     
     <HBox spacing="15">
         <Label text="Filter by Status:"/>

@@ -7,22 +7,34 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.geometry.Pos;
+import javafx.application.Platform;
 
 import com.acadflow.ui.dto.EventDTO;
-import com.acadflow.ui.services.SampleDataProvider;
 import com.acadflow.ui.util.AlertUtil;
+import com.acadflow.ui.util.SessionManager;
+import com.acadflow.module1.entity.Enrollment;
+import com.acadflow.module1.service.EnrollmentService;
+import com.acadflow.module2.service.AssignmentService;
+import com.acadflow.module2.entity.Assignment;
+import com.acadflow.module3.entity.Holiday;
+import com.acadflow.module3.service.HolidayService;
+import com.acadflow.module4.dto.ExamResponseDTO;
+import com.acadflow.module4.service.ExamService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Calendar Controller - displays monthly calendar with event highlights
- */
+@Component("uiCalendarController")
+@Scope("prototype")
 public class CalendarController {
 
     @FXML private VBox calendarContainer;
@@ -33,18 +45,91 @@ public class CalendarController {
     @FXML private Button nextBtn;
     @FXML private VBox eventsList;
 
+    @Autowired
+    private AssignmentService assignmentService;
+
+    @Autowired
+    private EnrollmentService enrollmentService;
+
+    @Autowired
+    private ExamService examService;
+
+    @Autowired
+    private HolidayService holidayService;
+
     private YearMonth currentMonth;
     private List<EventDTO> allEvents;
     private Map<String, String> eventColorMap;
 
     @FXML
     public void initialize() {
-        allEvents = SampleDataProvider.getSampleCalendarEvents();
+        allEvents = new ArrayList<>();
         currentMonth = YearMonth.now();
         setupEventColorMap();
         setupFilterCombo();
         setupNavigationButtons();
-        renderCalendar();
+        loadEvents();
+    }
+
+    private void loadEvents() {
+        new Thread(() -> {
+            try {
+                Long userId = SessionManager.getInstance().getUserId();
+                List<EventDTO> dynamicEvents = new ArrayList<>();
+                
+                // 1. Fetch Assignments
+                List<Assignment> assignments = assignmentService.getAssignmentsForStudent(userId);
+                for (Assignment a : assignments) {
+                    if (a.getDeadline() != null) {
+                        EventDTO ev = new EventDTO();
+                        ev.setTitle(a.getTitle() + " (" + a.getSubject().getCode() + ")");
+                        ev.setDate(a.getDeadline().toLocalDate().toString());
+                        ev.setEventType("ASSIGNMENT");
+                        ev.setColor(eventColorMap.get("ASSIGNMENT"));
+                        dynamicEvents.add(ev);
+                    }
+                }
+                
+                // 2. Fetch Exams for enrolled subjects
+                List<Enrollment> enrollments = enrollmentService.getEnrolledSubjects(userId);
+                for (Enrollment enroll : enrollments) {
+                    Long subjectId = enroll.getSubject().getId();
+                    List<ExamResponseDTO> exams = examService.getExamsForSubject(subjectId);
+                    for (ExamResponseDTO exam : exams) {
+                        if (exam.getDate() != null) {
+                            EventDTO ev = new EventDTO();
+                            ev.setTitle(exam.getType() + " Exam (" + enroll.getSubject().getCode() + ")");
+                            ev.setDate(exam.getDate().toLocalDate().toString());
+                            ev.setEventType("EXAM");
+                            ev.setColor(eventColorMap.get("EXAM"));
+                            dynamicEvents.add(ev);
+                        }
+                    }
+                }
+                
+                // 3. Fetch Holidays
+                List<Holiday> holidays = holidayService.getAllHolidays();
+                for (Holiday holiday : holidays) {
+                    if (holiday.getDate() != null) {
+                        EventDTO ev = new EventDTO();
+                        ev.setTitle(holiday.getName());
+                        ev.setDate(holiday.getDate().toString());
+                        ev.setEventType("HOLIDAY");
+                        ev.setColor(eventColorMap.get("HOLIDAY"));
+                        dynamicEvents.add(ev);
+                    }
+                }
+                
+                Platform.runLater(() -> {
+                    allEvents.clear();
+                    allEvents.addAll(dynamicEvents);
+                    renderCalendar();
+                    showAllCurrentMonthEvents();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private void setupEventColorMap() {
@@ -65,10 +150,12 @@ public class CalendarController {
         previousBtn.setOnAction(e -> {
             currentMonth = currentMonth.minusMonths(1);
             renderCalendar();
+            showAllCurrentMonthEvents();
         });
         nextBtn.setOnAction(e -> {
             currentMonth = currentMonth.plusMonths(1);
             renderCalendar();
+            showAllCurrentMonthEvents();
         });
     }
 
@@ -85,7 +172,6 @@ public class CalendarController {
             calendarGrid.add(dayHeader, i, 0);
         }
 
-        // Fill calendar with dates
         LocalDate firstDayOfMonth = currentMonth.atDay(1);
         LocalDate lastDayOfMonth = currentMonth.atEndOfMonth();
         int firstDayOfWeek = firstDayOfMonth.getDayOfWeek().getValue() % 7;
@@ -154,23 +240,51 @@ public class CalendarController {
             eventsList.getChildren().add(noEventsLabel);
         } else {
             for (EventDTO event : dayEvents) {
-                HBox eventBox = new HBox(10);
-                eventBox.setStyle("-fx-padding: 8; -fx-border-color: #eee; -fx-border-width: 0 0 1 0;");
-                
-                Label colorIndicator = new Label("●");
-                colorIndicator.setStyle("-fx-text-fill: " + event.getColor() + "; -fx-font-size: 16;");
-                
-                VBox eventInfo = new VBox(2);
-                Label eventTitle = new Label(event.getTitle());
-                eventTitle.setStyle("-fx-font-weight: bold;");
-                Label eventTypeLabel = new Label(event.getEventType());
-                eventTypeLabel.setStyle("-fx-font-size: 11; -fx-text-fill: #666;");
-                eventInfo.getChildren().addAll(eventTitle, eventTypeLabel);
-                
-                HBox.setHgrow(eventInfo, javafx.scene.layout.Priority.ALWAYS);
-                eventBox.getChildren().addAll(colorIndicator, eventInfo);
-                eventsList.getChildren().add(eventBox);
+                addEventToSidebar(event);
             }
         }
+    }
+
+    private void showAllCurrentMonthEvents() {
+        eventsList.getChildren().clear();
+        
+        Label dateLabel = new Label("Events in " + currentMonth.format(java.time.format.DateTimeFormatter.ofPattern("MMMM yyyy")));
+        dateLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 0 0 10 0;");
+        eventsList.getChildren().add(dateLabel);
+
+        List<EventDTO> monthEvents = allEvents.stream()
+                .filter(ev -> LocalDate.parse(ev.getDate()).getYear() == currentMonth.getYear() &&
+                              LocalDate.parse(ev.getDate()).getMonthValue() == currentMonth.getMonthValue())
+                .sorted((e1, e2) -> LocalDate.parse(e1.getDate()).compareTo(LocalDate.parse(e2.getDate())))
+                .toList();
+
+        if (monthEvents.isEmpty()) {
+            Label noEventsLabel = new Label("No events this month");
+            noEventsLabel.setStyle("-fx-text-fill: #999; -fx-padding: 10;");
+            eventsList.getChildren().add(noEventsLabel);
+        } else {
+            for (EventDTO event : monthEvents) {
+                addEventToSidebar(event);
+            }
+        }
+    }
+
+    private void addEventToSidebar(EventDTO event) {
+        HBox eventBox = new HBox(10);
+        eventBox.setStyle("-fx-padding: 8; -fx-border-color: #eee; -fx-border-width: 0 0 1 0;");
+        
+        Label colorIndicator = new Label("●");
+        colorIndicator.setStyle("-fx-text-fill: " + event.getColor() + "; -fx-font-size: 16;");
+        
+        VBox eventInfo = new VBox(2);
+        Label eventTitle = new Label(event.getTitle());
+        eventTitle.setStyle("-fx-font-weight: bold;");
+        Label eventTypeLabel = new Label(event.getEventType() + " - " + event.getDate());
+        eventTypeLabel.setStyle("-fx-font-size: 11; -fx-text-fill: #666;");
+        eventInfo.getChildren().addAll(eventTitle, eventTypeLabel);
+        
+        HBox.setHgrow(eventInfo, javafx.scene.layout.Priority.ALWAYS);
+        eventBox.getChildren().addAll(colorIndicator, eventInfo);
+        eventsList.getChildren().add(eventBox);
     }
 }

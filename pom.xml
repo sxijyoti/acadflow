@@ -92,7 +92,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
         <configuration>
-          <mainClass>com.acadflow.ui.AcadflowApplication</mainClass>
+          <mainClass>com.acadflow.module1.Module1Application</mainClass>
         </configuration>
       </plugin>
       <plugin>

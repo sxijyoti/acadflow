@@ -27,19 +27,19 @@
                 <Label text="NAVIGATION" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12;"/>
                 <Separator/>
                 
-                <Button fx:id="dashboardBtn" text="📊 Dashboard" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
-                <Button fx:id="calendarBtn" text="📅 Calendar" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
-                <Button fx:id="subjectsBtn" text="📚 Subjects" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
-                <Button fx:id="assignmentsBtn" text="📝 Assignments" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
-                <Button fx:id="resourcesBtn" text="📖 Resources" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
-                <Button fx:id="timetableBtn" text="⏰ Timetable" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
-                <Button fx:id="examsBtn" text="🧪 Exams" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
-                <Button fx:id="profileBtn" text="👤 Profile" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
-                <Button fx:id="holidaysBtn" text="🎉 Holidays" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="dashboardBtn" text="Dashboard" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="calendarBtn" text="Calendar" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="subjectsBtn" text="Subjects" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="assignmentsBtn" text="Assignments" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="resourcesBtn" text="Resources" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="timetableBtn" text="Timetable" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="examsBtn" text="Exams" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="profileBtn" text="Profile" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="holidaysBtn" text="Holidays" style="-fx-padding: 10 15; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
                 
                 <Separator VBox.vgrow="ALWAYS"/>
                 
-                <Button fx:id="logoutBtn" text="🚪 Logout" style="-fx-padding: 10 15; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
+                <Button fx:id="logoutBtn" text="Logout" style="-fx-padding: 10 15; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 12; -fx-alignment: CENTER_LEFT;" maxWidth="Infinity"/>
             </VBox>
 
             <!-- Main Content Area -->

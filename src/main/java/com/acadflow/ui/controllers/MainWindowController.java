@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -17,9 +16,6 @@ import com.acadflow.ui.util.AlertUtil;
 import java.io.IOException;
 import java.util.Objects;
 
-/**
- * Main Window Controller - manages sidebar and top bar navigation
- */
 public class MainWindowController {
 
     @FXML private BorderPane mainBorderPane;
@@ -70,6 +66,20 @@ public class MainWindowController {
             FXMLLoader loader = new FXMLLoader(
                 Objects.requireNonNull(getClass().getResource("/fxml/" + fxmlFileName))
             );
+            
+            loader.setControllerFactory(c -> {
+                try {
+                    if (com.acadflow.ui.AcadflowApplication.getSpringContext() != null) {
+                        try { return com.acadflow.ui.AcadflowApplication.getSpringContext().getBean(c); } catch (org.springframework.beans.BeansException ignored) { }
+                    }
+                    return c.getConstructor().newInstance();
+                } catch (Exception e) {
+                    System.err.println("[ERROR] Failed to instantiate controller: " + c.getName());
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+            
             Parent screenContent = loader.load();
             contentArea.getChildren().clear();
             contentArea.getChildren().add(screenContent);
@@ -79,64 +89,38 @@ public class MainWindowController {
         }
     }
 
-    private void loadDashboard() {
-        loadScreen("Dashboard.fxml");
-    }
-
-    private void loadCalendar() {
-        loadScreen("Calendar.fxml");
-    }
-
-    private void loadSubjects() {
-        loadScreen("SubjectEnrollment.fxml");
-    }
-
-    private void loadAssignments() {
-        loadScreen("Assignments.fxml");
-    }
-
-    private void loadResources() {
-        loadScreen("Resources.fxml");
-    }
-
-    private void loadTimetable() {
-        loadScreen("Timetable.fxml");
-    }
-
-    private void loadExams() {
-        loadScreen("Exams.fxml");
-    }
-
-    private void loadProfile() {
-        loadScreen("Profile.fxml");
-    }
-
-    private void loadHolidays() {
-        loadScreen("Holidays.fxml");
-    }
+    private void loadDashboard() { loadScreen("Dashboard.fxml"); }
+    private void loadCalendar() { loadScreen("Calendar.fxml"); }
+    private void loadSubjects() { loadScreen("SubjectEnrollment.fxml"); }
+    private void loadAssignments() { loadScreen("Assignments.fxml"); }
+    private void loadResources() { loadScreen("Resources.fxml"); }
+    private void loadTimetable() { loadScreen("Timetable.fxml"); }
+    private void loadExams() { loadScreen("Exams.fxml"); }
+    private void loadProfile() { loadScreen("Profile.fxml"); }
+    private void loadHolidays() { loadScreen("Holidays.fxml"); }
 
     private void handleLogout() {
-        // Clear session
         SessionManager.getInstance().logout();
-        
-        // Show confirmation
         AlertUtil.showInfo("Logout", "You have been logged out successfully");
-        
         try {
-            // Load login screen
             Stage stage = (Stage) mainBorderPane.getScene().getWindow();
-            
             FXMLLoader loader = new FXMLLoader(
                 Objects.requireNonNull(getClass().getResource("/fxml/Login.fxml"))
             );
+            loader.setControllerFactory(c -> {
+                try {
+                    if (com.acadflow.ui.AcadflowApplication.getSpringContext() != null) {
+                        try { return com.acadflow.ui.AcadflowApplication.getSpringContext().getBean(c); } catch (org.springframework.beans.BeansException ignored) { }
+                    }
+                    return c.getConstructor().newInstance();
+                } catch (Exception e) {
+                    return null;
+                }
+            });
             Parent root = loader.load();
-            
             Scene scene = new Scene(root);
-            String css = Objects.requireNonNull(
-                getClass().getResource("/css/styles.css")
-            ).toExternalForm();
+            String css = Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm();
             scene.getStylesheets().add(css);
-            
             stage.setScene(scene);
             stage.setWidth(800);
             stage.setHeight(700);

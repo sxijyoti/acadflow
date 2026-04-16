@@ -28,7 +28,9 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/dto/EnrollmentRequestDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/service/AdminService.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/controllers/AssignmentsController.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/SeedJpa.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/entity/EnrollmentStatus.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/CheckDb.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/service/UserService.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/dto/ExamDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/controller/TimetableController.java
@@ -40,6 +42,7 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/dto/AssignmentCreateDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/entity/EventType.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/dto/UserDTO.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/TestSingle.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/service/EnrollmentService.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/dto/TimetableSlotDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/service/ExamService.java
@@ -51,6 +54,8 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/service/SyllabusService.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/dto/ResourceDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/dto/SubmissionResponseDTO.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/TestNav.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/TestSubmission.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/repository/UserRepository.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/event/ExamEventListener.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/config/Module3ComponentScan.java
@@ -66,8 +71,11 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/factory/UserFactory.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/repository/EventRepository.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/strategy/SubmittedStrategy.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/CheckSubjects.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/controller/HolidayController.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/TestBeans2.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/dto/HolidayDTO.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/TestAllScreens.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/entity/DayOfWeek.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/controller/AssignmentController.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/repository/ResourceRepository.java
@@ -75,6 +83,7 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/dto/EventDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/service/SubmissionService.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/service/ProfileService.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/SeedDb.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/dto/AssignmentDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/service/CalendarService.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/entity/Resource.java
@@ -87,11 +96,13 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/exception/GlobalExceptionHandler.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/event/TimetableEventListener.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/repository/EnrollmentRepository.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/TestDb.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/dto/SubmissionRequestDTO.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/event/ExamEvent.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/AcadflowApplication.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/entity/Timetable.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/controllers/ExamsController.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/SeedJdbc.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/config/Module4Config.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/entity/Exam.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/repository/SubjectRepository.java
@@ -106,6 +117,7 @@
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/adapter/AssignmentEventAdapter.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module2/repository/AssignmentRepository.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module3/config/Module3Config.java
+/Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/ui/InsertData.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/event/TimetableEvent.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module1/controller/AdminController.java
 /Users/sjyoti/Developer/acadflow/src/main/java/com/acadflow/module4/controller/ExamController.java

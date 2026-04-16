@@ -14,6 +14,11 @@ import java.util.List;
 /**
  * Timetable Controller - displays weekly grid schedule
  */
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+
+@Component("uiTimetableController")
+@Scope("prototype")
 public class TimetableController {
 
     @FXML private VBox timetableContainer;
