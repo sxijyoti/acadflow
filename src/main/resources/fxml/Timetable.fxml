@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.acadflow.ui.controllers.TimetableController" fx:id="timetableContainer" spacing="20" style="-fx-padding: 20;">
+    
+    <Label text="Timetable" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    
+    <Label text="Weekly Schedule" style="-fx-font-size: 14; -fx-text-fill: #666;"/>
+    
+    <ScrollPane style="-fx-control-inner-background: #f5f5f5;" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+        <GridPane fx:id="timetableGrid" gridLinesVisible="true" style="-fx-grid-lines-visible: true; -fx-padding: 10;" hgap="5" vgap="5">
+        </GridPane>
+    </ScrollPane>
+</VBox>

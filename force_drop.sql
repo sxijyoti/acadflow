@@ -1,0 +1,6 @@
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE submissions;
+DROP TABLE assignments;
+DROP TABLE subjects;
+DROP TABLE subject;
+SET FOREIGN_KEY_CHECKS = 1;

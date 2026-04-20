@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.acadflow.ui.controllers.SubjectEnrollmentController" fx:id="enrollmentContainer" spacing="20" style="-fx-padding: 20;">
+    
+    <Label text="Subject Enrollment" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    
+    <TabPane tabClosingPolicy="UNAVAILABLE">
+        <!-- Available Subjects Tab -->
+        <Tab text="Available Subjects" closable="false">
+            <VBox spacing="10" style="-fx-padding: 15;">
+                <TableView fx:id="availableSubjectsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="codeColumn1" text="Code" prefWidth="80"/>
+                        <TableColumn fx:id="nameColumn1" text="Subject Name" prefWidth="150"/>
+                        <TableColumn fx:id="instructorColumn1" text="Instructor" prefWidth="120"/>
+                        <TableColumn fx:id="creditsColumn1" text="Credits" prefWidth="60"/>
+                        <TableColumn fx:id="enrollColumn" text="Action" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+        
+        <!-- Enrolled Subjects Tab -->
+        <Tab text="Enrolled Subjects" closable="false">
+            <VBox spacing="10" style="-fx-padding: 15;">
+                <TableView fx:id="enrolledSubjectsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="codeColumn2" text="Code" prefWidth="80"/>
+                        <TableColumn fx:id="nameColumn2" text="Subject Name" prefWidth="150"/>
+                        <TableColumn fx:id="totalClassesColumn" text="Total Classes" prefWidth="100"/>
+                        <TableColumn fx:id="attendedColumn" text="Attended" prefWidth="80"/>
+                        <TableColumn fx:id="dropColumn" text="Action" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.acadflow.ui.controllers.HolidaysController" fx:id="holidaysContainer" spacing="20" style="-fx-padding: 20;">
+    
+    <Label text="🎉 Holidays" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    
+    <TableView fx:id="holidaysTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Holiday Name" prefWidth="150"/>
+            <TableColumn fx:id="dateColumn" text="Date" prefWidth="100"/>
+            <TableColumn fx:id="categoryColumn" text="Category" prefWidth="100"/>
+            <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="200"/>
+        </columns>
+    </TableView>
+</VBox>

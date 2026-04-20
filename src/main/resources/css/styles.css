@@ -1,0 +1,407 @@
+/* ============================================
+   ACADFLOW APPLICATION STYLES
+   ============================================ */
+
+/* Root Styles */
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 12;
+}
+
+/* ============================================
+   COLOR PALETTE
+   ============================================ */
+.primary-color { -fx-text-fill: #3498db; }
+.success-color { -fx-text-fill: #27ae60; }
+.danger-color { -fx-text-fill: #e74c3c; }
+.warning-color { -fx-text-fill: #f39c12; }
+.neutral-color { -fx-text-fill: #95a5a6; }
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.button {
+    -fx-padding: 8 15;
+    -fx-font-size: 12;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-opacity: 0.9;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Button Variants */
+.button-primary {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.button-success {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+}
+
+.button-danger {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+}
+
+.button-info {
+    -fx-background-color: #9b59b6;
+    -fx-text-fill: white;
+}
+
+/* ============================================
+   LABELS
+   ============================================ */
+.label {
+    -fx-text-fill: #2c3e50;
+}
+
+.label-title {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.label-small {
+    -fx-font-size: 10;
+    -fx-text-fill: #7f8c8d;
+}
+
+.label-status-pending {
+    -fx-text-fill: #f39c12;
+    -fx-font-weight: bold;
+}
+
+.label-status-submitted {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.label-status-late {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+.label-status-graded {
+    -fx-text-fill: #3498db;
+    -fx-font-weight: bold;
+}
+
+/* ============================================
+   TEXT FIELDS
+   ============================================ */
+.text-field {
+    -fx-padding: 8 10;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-font-size: 12;
+    -fx-text-fill: #2c3e50;
+}
+
+.text-field:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+    -fx-padding: 7 9;
+}
+
+/* ============================================
+   COMBO BOXES
+   ============================================ */
+.combo-box {
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 4;
+    -fx-padding: 8;
+}
+
+.combo-box:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+}
+
+/* ============================================
+   TABLE STYLES
+   ============================================ */
+.table-view {
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #34495e;
+}
+
+.table-row-cell {
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #ecf0f1;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #d5e8f7;
+}
+
+/* ============================================
+   TITLED PANE
+   ============================================ */
+.titled-pane {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-padding: 10;
+}
+
+.titled-pane .title {
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-text-fill: #2c3e50;
+    -fx-background-color: #ecf0f1;
+    -fx-padding: 8;
+}
+
+/* ============================================
+   SEPARATORS
+   ============================================ */
+.separator {
+    -fx-border-color: #bdc3c7;
+}
+
+/* ============================================
+   SCROLL PANES
+   ============================================ */
+.scroll-pane {
+    -fx-background-color: white;
+}
+
+.scroll-bar {
+    -fx-background-color: #ecf0f1;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #bdc3c7;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #95a5a6;
+}
+
+/* ============================================
+   VBOX & HBOX
+   ============================================ */
+.vbox, .hbox {
+    -fx-spacing: 10;
+}
+
+/* ============================================
+   CARD STYLES (for overview cards)
+   ============================================ */
+.card {
+    -fx-border-radius: 8;
+    -fx-padding: 15;
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+}
+
+.card-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-text-fill: #2c3e50;
+}
+
+.card-value {
+    -fx-font-weight: bold;
+    -fx-font-size: 28;
+    -fx-text-fill: #3498db;
+}
+
+/* ============================================
+   SIDEBAR STYLES
+   ============================================ */
+.sidebar {
+    -fx-background-color: #34495e;
+    -fx-padding: 20;
+    -fx-min-width: 220;
+}
+
+.sidebar .button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 10 15;
+    -fx-font-size: 12;
+    -fx-cursor: hand;
+}
+
+.sidebar .button:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* ============================================
+   TOP BAR STYLES
+   ============================================ */
+.top-bar {
+    -fx-padding: 15;
+    -fx-background-color: #2c3e50;
+    -fx-text-fill: white;
+}
+
+.top-bar .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ============================================
+   ALERT STYLES
+   ============================================ */
+.alert {
+    -fx-padding: 20;
+    -fx-border-radius: 8;
+}
+
+.alert.information {
+    -fx-background-color: #d5e8f7;
+    -fx-border-color: #3498db;
+}
+
+.alert.warning {
+    -fx-background-color: #fce8d6;
+    -fx-border-color: #f39c12;
+}
+
+.alert.error {
+    -fx-background-color: #fadbd8;
+    -fx-border-color: #e74c3c;
+}
+
+.alert.success {
+    -fx-background-color: #d5f4e6;
+    -fx-border-color: #27ae60;
+}
+
+/* ============================================
+   SHARED CONTENT AREA
+   ============================================ */
+.content-area {
+    -fx-background-color: #ecf0f1;
+    -fx-padding: 20;
+}
+
+/* ============================================
+   GRID PANE - Calendar
+   ============================================ */
+.grid-pane {
+    -fx-grid-lines-visible: true;
+    -fx-border-color: #bdc3c7;
+}
+
+/* ============================================
+   EVENT INDICATORS
+   ============================================ */
+.event-indicator-exam {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+.event-indicator-assignment {
+    -fx-text-fill: #f39c12;
+    -fx-font-weight: bold;
+}
+
+.event-indicator-holiday {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.event-indicator-class {
+    -fx-text-fill: #3498db;
+    -fx-font-weight: bold;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-height: 600) {
+    .button { -fx-padding: 6 12; -fx-font-size: 11; }
+    .label { -fx-font-size: 11; }
+}
+
+@media (max-width: 1024) {
+    .sidebar { -fx-min-width: 180; }
+    .table-view { -fx-font-size: 11; }
+}
+
+/* ============================================
+   ANIMATIONS & TRANSITIONS
+   ============================================ */
+.button:focused {
+    -fx-focus-color: #3498db;
+    -fx-faint-focus-color: rgba(52, 152, 219, 0.3);
+}
+
+/* ============================================
+   TEXT AREA STYLES
+   ============================================ */
+.text-area {
+    -fx-padding: 8;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-font-size: 12;
+    -fx-text-fill: #2c3e50;
+}
+
+.text-area:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+    -fx-padding: 7;
+}
+
+/* ============================================
+   PROGRESS INDICATORS
+   ============================================ */
+.progress-bar {
+    -fx-padding: 4;
+    -fx-background-radius: 4;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: #27ae60;
+    -fx-background-radius: 4;
+}
+
+/* ============================================
+   FOCUSED ELEMENTS
+   ============================================ */
+*:focused {
+    -fx-focus-color: #3498db;
+}

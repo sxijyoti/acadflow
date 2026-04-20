@@ -25,3 +25,23 @@ replay_pid*
 
 .env
 venv/
+
+# Application configuration (contains credentials)
+src/main/resources/application.properties
+src/main/resources/application-*.properties
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Build
+target/
+*.class
+*.jar
+
+CODEBASE_ANALYSIS.md
+DOCKER_SETUP.md
+FILE_MANIFEST.md
+MODULE4_*
+JAVAFX_*

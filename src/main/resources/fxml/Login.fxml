@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.acadflow.ui.controllers.LoginController">
+    <!-- Main Content -->
+    <center>
+        <VBox spacing="30" style="-fx-alignment: CENTER; -fx-padding: 50; -fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);">
+            
+            <!-- Login Card -->
+            <VBox spacing="20" style="-fx-padding: 40; -fx-background-color: white; -fx-border-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" maxWidth="400" maxHeight="600">
+                
+                <!-- Title -->
+                <VBox spacing="10" style="-fx-alignment: CENTER;">
+                    <Label text="🎓" style="-fx-font-size: 48; -fx-text-alignment: CENTER;"/>
+                    <Label text="Academic Workflow" style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-text-alignment: CENTER;"/>
+                    <Label text="Management System" style="-fx-font-size: 24; -fx-text-fill: #667eea; -fx-text-alignment: CENTER;"/>
+                </VBox>
+                
+                <Separator/>
+                
+                <!-- Welcome Message -->
+                <Label text="Welcome Back! Please login to continue" style="-fx-font-size: 14; -fx-text-fill: #7f8c8d; -fx-text-alignment: CENTER;"/>
+                
+                <!-- Email Field -->
+                <VBox spacing="5">
+                    <Label text="Email Address" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size: 12;"/>
+                    <TextField fx:id="emailField" promptText="Enter your email" style="-fx-font-size: 14; -fx-padding: 12; -fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-padding: 12 15;"/>
+                </VBox>
+                
+                <!-- Password Field -->
+                <VBox spacing="5">
+                    <Label text="Password" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size: 12;"/>
+                    <PasswordField fx:id="passwordField" promptText="Enter your password" style="-fx-font-size: 14; -fx-padding: 12; -fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-padding: 12 15;"/>
+                </VBox>
+                
+                <!-- Error Message -->
+                <Label fx:id="errorLabel" text="" style="-fx-text-fill: #e74c3c; -fx-font-size: 12; -fx-padding: 10; -fx-border-color: #fadbd8; -fx-border-radius: 5; -fx-background-color: #fadbd8; -fx-padding: 10 15;" wrapText="true" visible="false" managed="false"/>
+                
+                <!-- Login Button -->
+                <Button fx:id="loginButton" text="Login" style="-fx-font-size: 14; -fx-padding: 12; -fx-background-color: #667eea; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5; -fx-cursor: hand;" maxWidth="Infinity"/>
+                
+                <!-- Progress Indicator (hidden by default) -->
+                <ProgressIndicator fx:id="loadingIndicator" visible="false" managed="false" style="-fx-padding: 10;"/>
+                
+                <!-- Demo Credentials -->
+                <VBox spacing="8" style="-fx-padding: 15; -fx-background-color: #ecf0f1; -fx-border-radius: 5;">
+                    <Label text="Demo Credentials" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size: 12;"/>
+                    <Label text="Email: student@acadflow.com" style="-fx-text-fill: #34495e; -fx-font-size: 11;"/>
+                    <Label text="Password: password123" style="-fx-text-fill: #34495e; -fx-font-size: 11;"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

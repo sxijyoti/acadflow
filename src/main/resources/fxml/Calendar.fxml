@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.acadflow.ui.controllers.CalendarController" spacing="15" style="-fx-padding: 20;">
+    
+    <Label text="Calendar" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    
+    <!-- Controls -->
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <Button fx:id="previousBtn" text="← Previous" style="-fx-padding: 8 15; -fx-font-size: 12;"/>
+        <Label fx:id="monthYearLabel" style="-fx-font-size: 16; -fx-font-weight: bold;" HBox.hgrow="ALWAYS"/>
+        <Button fx:id="nextBtn" text="Next →" style="-fx-padding: 8 15; -fx-font-size: 12;"/>
+        <ComboBox fx:id="filterCombo" style="-fx-min-width: 120;"/>
+    </HBox>
+
+    <!-- Main Layout -->
+    <HBox spacing="15" VBox.vgrow="ALWAYS">
+        <!-- Calendar Grid -->
+        <VBox HBox.hgrow="ALWAYS">
+            <GridPane fx:id="calendarGrid" gridLinesVisible="true" style="-fx-grid-lines-visible: true;" VBox.vgrow="ALWAYS">
+            </GridPane>
+        </VBox>
+        
+        <!-- Events Panel -->
+        <VBox style="-fx-border-color: #ddd; -fx-border-width: 1; -fx-padding: 15; -fx-min-width: 250;" spacing="10">
+            <Label text="Events" style="-fx-font-weight: bold;"/>
+            <Separator/>
+            <ScrollPane style="-fx-control-inner-background: #f5f5f5;">
+                <VBox fx:id="eventsList" spacing="8" style="-fx-padding: 5;"/>
+            </ScrollPane>
+        </VBox>
+    </HBox>
+</VBox>
